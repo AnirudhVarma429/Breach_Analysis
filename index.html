@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sankey Diagram – U.S. Gov Breaches</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <h2>Cybersecurity Breach Flow: Attack → Root Cause → Agency (2010–2025)</h2>
+  <div id="sankey" style="width: 100%; height: 600px;"></div>
+
+  <script>
+    var data = {
+      type: "sankey",
+      orientation: "h",
+      node: {
+        pad: 15,
+        thickness: 20,
+        line: { color: "black", width: 0.5 },
+        label: [
+          "Ransomware", "Insider Threat", "Data Breach", "Phishing", "Supply Chain",
+          "Misconfiguration", "Phishing", "Zero-Day", "Insider", "Third-Party Vendor",
+          "OPM", "DoD", "DHS", "State Dept", "NSA"
+        ]
+      },
+      link: {
+        source: [
+          0, 0, 1, 2, 3, 4,    // Attack → Root
+          5, 6, 7, 8, 9,       // Root → Agency
+          5, 6, 7, 8, 9
+        ],
+        target: [
+          5, 6, 7, 8, 9, 5,    // Attack → Root
+          10, 11, 12, 13, 14,  // Root → Agency
+          12, 10, 14, 13, 11
+        ],
+        value: [
+          3, 2, 4, 5, 3, 2,    // Attack → Root
+          4, 3, 2, 2, 3,       // Root → Agency
+          1, 2, 2, 1, 3
+        ]
+      }
+    };
+
+    var layout = {
+      title: "Sankey Diagram – Breach Flow Analysis",
+      font: { size: 12 }
+    };
+
+    Plotly.newPlot('sankey', [data], layout);
+  </script>
+</body>
+</html>
